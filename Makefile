@@ -37,20 +37,21 @@ include $(DEVKITPRO)/libnx/switch_rules
 #   of a homebrew executable (.nro). This is intended to be used for sysmodules.
 #   NACP building is skipped as well.
 #---------------------------------------------------------------------------------
-TARGET		:=	$(notdir $(CURDIR))
+TARGET		:=	Awoo-Installer
 BUILD		:=	build
 SOURCES		:=	source source/ui source/data source/install source/nx source/nx/ipc source/util
 DATA		:=	data
 INCLUDES	:=	include include/ui include/data include/install include/nx include/nx/ipc include/util
 APP_TITLE	:=	Awoo Installer
 APP_AUTHOR	:=	Huntereb & Behemoth
-APP_VERSION	:=	1.3.5
+APP_VERSION	:=	$(shell git describe --tags | sed 's/-g.*//')
 ROMFS		:=	romfs
 
 #---------------------------------------------------------------------------------
 # options for code generation
 #---------------------------------------------------------------------------------
 ARCH	:=	-march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE
+DEFINES	:=	-DAPP_VERSION=$(shell git describe --tags --dirty)
 
 CFLAGS	:=	-g -Wall -O2 -ffunction-sections \
 			$(ARCH) $(DEFINES)
