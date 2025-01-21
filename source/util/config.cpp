@@ -7,9 +7,9 @@ namespace inst::config {
     std::string gAuthKey;
     std::string sigPatchesUrl;
     std::string lastNetUrl;
-    std::vector<std::string> updateInfo;
+    //std::vector<std::string> updateInfo;
     int languageSetting;
-    bool autoUpdate;
+    //bool autoUpdate;
     bool deletePrompt;
     bool gayMode;
     bool ignoreReqVers;
@@ -19,7 +19,7 @@ namespace inst::config {
 
     void setConfig() {
         nlohmann::json j = {
-            {"autoUpdate", autoUpdate},
+            //{"autoUpdate", autoUpdate},
             {"deletePrompt", deletePrompt},
             {"gAuthKey", gAuthKey},
             {"gayMode", gayMode},
@@ -40,7 +40,7 @@ namespace inst::config {
             std::ifstream file(inst::config::configPath);
             nlohmann::json j;
             file >> j;
-            autoUpdate = j["autoUpdate"].get<bool>();
+            //autoUpdate = j["autoUpdate"].get<bool>();
             deletePrompt = j["deletePrompt"].get<bool>();
             gAuthKey = j["gAuthKey"].get<std::string>();
             gayMode = j["gayMode"].get<bool>();
@@ -57,7 +57,7 @@ namespace inst::config {
             gAuthKey = {0x41,0x49,0x7a,0x61,0x53,0x79,0x42,0x4d,0x71,0x76,0x34,0x64,0x58,0x6e,0x54,0x4a,0x4f,0x47,0x51,0x74,0x5a,0x5a,0x53,0x33,0x43,0x42,0x6a,0x76,0x66,0x37,0x34,0x38,0x51,0x76,0x78,0x53,0x7a,0x46,0x30};
             sigPatchesUrl = "https://sigmapatches.coomer.party/sigpatches.zip";
             languageSetting = 99;
-            autoUpdate = true;
+            //autoUpdate = true;
             deletePrompt = true;
             gayMode = false;
             ignoreReqVers = true;

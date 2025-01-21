@@ -20,7 +20,7 @@ namespace inst::ui {
             TextBlock::Ref appVersionText;
         private:
             bool appletFinished;
-            bool updateFinished;
+            //bool updateFinished;
             TextBlock::Ref butText;
             Rectangle::Ref topRect;
             Rectangle::Ref botRect;

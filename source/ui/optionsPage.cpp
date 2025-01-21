@@ -52,28 +52,28 @@ namespace inst::ui {
         this->Add(this->menu);
     }
 
-    void optionsPage::askToUpdate(std::vector<std::string> updateInfo) {
-            if (!mainApp->CreateShowDialog("options.update.title"_lang, "options.update.desc0"_lang + updateInfo[0] + "options.update.desc1"_lang, {"options.update.opt0"_lang, "common.cancel"_lang}, false)) {
-                inst::ui::instPage::loadInstallScreen();
-                inst::ui::instPage::setTopInstInfoText("options.update.top_info"_lang + updateInfo[0]);
-                inst::ui::instPage::setInstBarPerc(0);
-                inst::ui::instPage::setInstInfoText("options.update.bot_info"_lang + updateInfo[0]);
-                try {
-                    std::string downloadName = inst::config::appDir + "/temp_download.zip";
-                    inst::curl::downloadFile(updateInfo[1], downloadName.c_str(), 0, true);
-                    romfsExit();
-                    inst::ui::instPage::setInstInfoText("options.update.bot_info2"_lang + updateInfo[0]);
-                    inst::zip::extractFile(downloadName, "sdmc:/");
-                    std::filesystem::remove(downloadName);
-                    mainApp->CreateShowDialog("options.update.complete"_lang, "options.update.end_desc"_lang, {"common.ok"_lang}, false);
-                } catch (...) {
-                    mainApp->CreateShowDialog("options.update.failed"_lang, "options.update.end_desc"_lang, {"common.ok"_lang}, false);
-                }
-                mainApp->FadeOut();
-                mainApp->Close();
-            }
-        return;
-    }
+    //void optionsPage::askToUpdate(std::vector<std::string> updateInfo) {
+    //        if (!mainApp->CreateShowDialog("options.update.title"_lang, "options.update.desc0"_lang + updateInfo[0] + "options.update.desc1"_lang, {"options.update.opt0"_lang, "common.cancel"_lang}, false)) {
+    //            inst::ui::instPage::loadInstallScreen();
+    //            inst::ui::instPage::setTopInstInfoText("options.update.top_info"_lang + updateInfo[0]);
+    //            inst::ui::instPage::setInstBarPerc(0);
+    //            inst::ui::instPage::setInstInfoText("options.update.bot_info"_lang + updateInfo[0]);
+    //            try {
+    //                std::string downloadName = inst::config::appDir + "/temp_download.zip";
+    //                inst::curl::downloadFile(updateInfo[1], downloadName.c_str(), 0, true);
+    //                romfsExit();
+    //                inst::ui::instPage::setInstInfoText("options.update.bot_info2"_lang + updateInfo[0]);
+    //                inst::zip::extractFile(downloadName, "sdmc:/");
+    //                std::filesystem::remove(downloadName);
+    //                mainApp->CreateShowDialog("options.update.complete"_lang, "options.update.end_desc"_lang, {"common.ok"_lang}, false);
+    //            } catch (...) {
+    //                mainApp->CreateShowDialog("options.update.failed"_lang, "options.update.end_desc"_lang, {"common.ok"_lang}, false);
+    //            }
+    //            mainApp->FadeOut();
+    //            mainApp->Close();
+    //        }
+    //    return;
+    //}
 
     std::string optionsPage::getMenuOptionIcon(bool ourBool) {
         if(ourBool) return "romfs:/images/icons/check-box-outline.png";
@@ -130,10 +130,10 @@ namespace inst::ui {
         deletePromptOption->SetColor(COLOR("#FFFFFFFF"));
         deletePromptOption->SetIcon(this->getMenuOptionIcon(inst::config::deletePrompt));
         this->menu->AddItem(deletePromptOption);
-        auto autoUpdateOption = pu::ui::elm::MenuItem::New("options.menu_items.auto_update"_lang);
-        autoUpdateOption->SetColor(COLOR("#FFFFFFFF"));
-        autoUpdateOption->SetIcon(this->getMenuOptionIcon(inst::config::autoUpdate));
-        this->menu->AddItem(autoUpdateOption);
+        //auto autoUpdateOption = pu::ui::elm::MenuItem::New("options.menu_items.auto_update"_lang);
+        //autoUpdateOption->SetColor(COLOR("#FFFFFFFF"));
+        //autoUpdateOption->SetIcon(this->getMenuOptionIcon(inst::config::autoUpdate));
+        //this->menu->AddItem(autoUpdateOption);
         auto gayModeOption = pu::ui::elm::MenuItem::New("options.menu_items.gay_option"_lang);
         gayModeOption->SetColor(COLOR("#FFFFFFFF"));
         gayModeOption->SetIcon(this->getMenuOptionIcon(inst::config::gayMode));
@@ -144,9 +144,9 @@ namespace inst::ui {
         auto languageOption = pu::ui::elm::MenuItem::New("options.menu_items.language"_lang + this->getMenuLanguage(inst::config::languageSetting));
         languageOption->SetColor(COLOR("#FFFFFFFF"));
         this->menu->AddItem(languageOption);
-        auto updateOption = pu::ui::elm::MenuItem::New("options.menu_items.check_update"_lang);
-        updateOption->SetColor(COLOR("#FFFFFFFF"));
-        this->menu->AddItem(updateOption);
+        //auto updateOption = pu::ui::elm::MenuItem::New("options.menu_items.check_update"_lang);
+        //updateOption->SetColor(COLOR("#FFFFFFFF"));
+        //this->menu->AddItem(updateOption);
         auto creditsOption = pu::ui::elm::MenuItem::New("options.menu_items.credits"_lang);
         creditsOption->SetColor(COLOR("#FFFFFFFF"));
         this->menu->AddItem(creditsOption);
@@ -184,12 +184,12 @@ namespace inst::ui {
                     inst::config::setConfig();
                     this->setMenuText();
                     break;
+                //case 4:
+                //    inst::config::autoUpdate = !inst::config::autoUpdate;
+                //    inst::config::setConfig();
+                //    this->setMenuText();
+                //    break;
                 case 4:
-                    inst::config::autoUpdate = !inst::config::autoUpdate;
-                    inst::config::setConfig();
-                    this->setMenuText();
-                    break;
-                case 5:
                     if (inst::config::gayMode) {
                         inst::config::gayMode = false;
                         mainApp->mainPage->awooImage->SetVisible(true);
@@ -227,7 +227,7 @@ namespace inst::ui {
                     inst::config::setConfig();
                     this->setMenuText();
                     break;
-                case 6:
+                case 5:
                     keyboardResult = inst::util::softwareKeyboard("options.sig_hint"_lang, inst::config::sigPatchesUrl.c_str(), 500);
                     if (keyboardResult.size() > 0) {
                         inst::config::sigPatchesUrl = keyboardResult;
@@ -235,7 +235,7 @@ namespace inst::ui {
                         this->setMenuText();
                     }
                     break;
-                case 7:
+                case 6:
                     languageList = languageStrings;
                     languageList.push_back("options.language.system_language"_lang);
                     rc = inst::ui::mainApp->CreateShowDialog("options.language.title"_lang, "options.language.desc"_lang, languageList, false);
@@ -281,19 +281,19 @@ namespace inst::ui {
                     mainApp->FadeOut();
                     mainApp->Close();
                     break;
-                case 8:
-                    if (inst::util::getIPAddress() == "1.0.0.127") {
-                        inst::ui::mainApp->CreateShowDialog("main.net.title"_lang, "main.net.desc"_lang, {"common.ok"_lang}, true);
-                        break;
-                    }
-                    downloadUrl = inst::util::checkForAppUpdate();
-                    if (!downloadUrl.size()) {
-                        mainApp->CreateShowDialog("options.update.title_check_fail"_lang, "options.update.desc_check_fail"_lang, {"common.ok"_lang}, false);
-                        break;
-                    }
-                    this->askToUpdate(downloadUrl);
-                    break;
-                case 9:
+                //case 8:
+                //    if (inst::util::getIPAddress() == "1.0.0.127") {
+                //        inst::ui::mainApp->CreateShowDialog("main.net.title"_lang, "main.net.desc"_lang, {"common.ok"_lang}, true);
+                //        break;
+                //    }
+                //    downloadUrl = inst::util::checkForAppUpdate();
+                //    if (!downloadUrl.size()) {
+                //        mainApp->CreateShowDialog("options.update.title_check_fail"_lang, "options.update.desc_check_fail"_lang, {"common.ok"_lang}, false);
+                //        break;
+                //    }
+                //    this->askToUpdate(downloadUrl);
+                //    break;
+                case 7:
                     inst::ui::mainApp->CreateShowDialog("options.credits.title"_lang, "options.credits.desc"_lang, {"common.close"_lang}, true);
                     break;
                 default:
