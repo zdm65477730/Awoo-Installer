@@ -6,7 +6,7 @@
 #define STR(x) STR_VAL(x)
 
 namespace inst::config {
-    static const std::string appDir = "sdmc:/switch/Awoo-Installer";
+    static const std::string appDir = "sdmc:/config/Awoo-Installer";
     static const std::string configPath = appDir + "/config.json";
     static const std::string appVersion = STR(APP_VERSION);
 
