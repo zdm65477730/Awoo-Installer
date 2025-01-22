@@ -11,7 +11,6 @@ namespace inst::config {
     static const std::string appVersion = STR(APP_VERSION);
 
     extern std::string gAuthKey;
-    extern std::string sigPatchesUrl;
     extern std::string lastNetUrl;
     //extern std::vector<std::string> updateInfo;
     extern int languageSetting;

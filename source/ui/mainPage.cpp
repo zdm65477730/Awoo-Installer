@@ -5,7 +5,6 @@
 #include "util/util.hpp"
 #include "util/config.hpp"
 #include "util/lang.hpp"
-#include "sigInstall.hpp"
 #include "data/buffered_placeholder_writer.hpp"
 
 #define COLOR(hex) pu::ui::Color::FromHex(hex)
@@ -63,9 +62,6 @@ namespace inst::ui {
         this->usbInstallMenuItem = pu::ui::elm::MenuItem::New("main.menu.usb"_lang);
         this->usbInstallMenuItem->SetColor(COLOR("#FFFFFFFF"));
         this->usbInstallMenuItem->SetIcon("romfs:/images/icons/usb-port.png");
-        this->sigPatchesMenuItem = pu::ui::elm::MenuItem::New("main.menu.sig"_lang);
-        this->sigPatchesMenuItem->SetColor(COLOR("#FFFFFFFF"));
-        this->sigPatchesMenuItem->SetIcon("romfs:/images/icons/wrench.png");
         this->settingsMenuItem = pu::ui::elm::MenuItem::New("main.menu.set"_lang);
         this->settingsMenuItem->SetColor(COLOR("#FFFFFFFF"));
         this->settingsMenuItem->SetIcon("romfs:/images/icons/settings.png");
@@ -83,7 +79,6 @@ namespace inst::ui {
         this->optionMenu->AddItem(this->installMenuItem);
         this->optionMenu->AddItem(this->netInstallMenuItem);
         this->optionMenu->AddItem(this->usbInstallMenuItem);
-        this->optionMenu->AddItem(this->sigPatchesMenuItem);
         this->optionMenu->AddItem(this->settingsMenuItem);
         this->optionMenu->AddItem(this->exitMenuItem);
         this->Add(this->optionMenu);
@@ -119,10 +114,6 @@ namespace inst::ui {
         else mainApp->CreateShowDialog("main.usb.error.title"_lang, "main.usb.error.desc"_lang, {"common.ok"_lang}, false);
     }
 
-    void MainPage::sigPatchesMenuItem_Click() {
-        sig::installSigPatches();
-    }
-
     void MainPage::exitMenuItem_Click() {
         mainApp->FadeOut();
         mainApp->Close();
@@ -149,12 +140,9 @@ namespace inst::ui {
                     MainPage::usbInstallMenuItem_Click();
                     break;
                 case 3:
-                    MainPage::sigPatchesMenuItem_Click();
-                    break;
-                case 4:
                     MainPage::settingsMenuItem_Click();
                     break;
-                case 5:
+                case 4:
                     MainPage::exitMenuItem_Click();
                     break;
                 default:

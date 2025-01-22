@@ -138,9 +138,6 @@ namespace inst::ui {
         gayModeOption->SetColor(COLOR("#FFFFFFFF"));
         gayModeOption->SetIcon(this->getMenuOptionIcon(inst::config::gayMode));
         this->menu->AddItem(gayModeOption);
-        auto sigPatchesUrlOption = pu::ui::elm::MenuItem::New("options.menu_items.sig_url"_lang + inst::util::shortenString(inst::config::sigPatchesUrl, 42, false));
-        sigPatchesUrlOption->SetColor(COLOR("#FFFFFFFF"));
-        this->menu->AddItem(sigPatchesUrlOption);
         auto languageOption = pu::ui::elm::MenuItem::New("options.menu_items.language"_lang + this->getMenuLanguage(inst::config::languageSetting));
         languageOption->SetColor(COLOR("#FFFFFFFF"));
         this->menu->AddItem(languageOption);
@@ -228,14 +225,6 @@ namespace inst::ui {
                     this->setMenuText();
                     break;
                 case 5:
-                    keyboardResult = inst::util::softwareKeyboard("options.sig_hint"_lang, inst::config::sigPatchesUrl.c_str(), 500);
-                    if (keyboardResult.size() > 0) {
-                        inst::config::sigPatchesUrl = keyboardResult;
-                        inst::config::setConfig();
-                        this->setMenuText();
-                    }
-                    break;
-                case 6:
                     languageList = languageStrings;
                     languageList.push_back("options.language.system_language"_lang);
                     rc = inst::ui::mainApp->CreateShowDialog("options.language.title"_lang, "options.language.desc"_lang, languageList, false);
@@ -293,7 +282,7 @@ namespace inst::ui {
                 //    }
                 //    this->askToUpdate(downloadUrl);
                 //    break;
-                case 7:
+                case 6:
                     inst::ui::mainApp->CreateShowDialog("options.credits.title"_lang, "options.credits.desc"_lang, {"common.close"_lang}, true);
                     break;
                 default:
