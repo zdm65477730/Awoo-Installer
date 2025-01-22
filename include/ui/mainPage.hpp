@@ -29,6 +29,5 @@ namespace inst::ui {
             pu::ui::elm::MenuItem::Ref usbInstallMenuItem;
             pu::ui::elm::MenuItem::Ref settingsMenuItem;
             pu::ui::elm::MenuItem::Ref exitMenuItem;
-            Image::Ref eggImage;
     };
 }

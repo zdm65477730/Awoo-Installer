@@ -189,8 +189,6 @@ namespace inst::ui {
                 case 4:
                     if (inst::config::gayMode) {
                         inst::config::gayMode = false;
-                        mainApp->mainPage->awooImage->SetVisible(true);
-                        mainApp->instpage->awooImage->SetVisible(true);
                         mainApp->instpage->titleImage->SetX(0);
                         mainApp->instpage->appVersionText->SetX(480);
                         mainApp->mainPage->titleImage->SetX(0);
@@ -206,8 +204,6 @@ namespace inst::ui {
                     }
                     else {
                         inst::config::gayMode = true;
-                        mainApp->mainPage->awooImage->SetVisible(false);
-                        mainApp->instpage->awooImage->SetVisible(false);
                         mainApp->instpage->titleImage->SetX(-113);
                         mainApp->instpage->appVersionText->SetX(367);
                         mainApp->mainPage->titleImage->SetX(-113);
