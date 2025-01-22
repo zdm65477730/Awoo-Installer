@@ -10,7 +10,7 @@ namespace inst::config {
     int languageSetting;
     //bool autoUpdate;
     bool deletePrompt;
-    bool gayMode;
+    bool disableSound;
     bool ignoreReqVers;
     bool overClock;
     bool usbAck;
@@ -21,7 +21,7 @@ namespace inst::config {
             //{"autoUpdate", autoUpdate},
             {"deletePrompt", deletePrompt},
             {"gAuthKey", gAuthKey},
-            {"gayMode", gayMode},
+            {"disableSound", disableSound},
             {"ignoreReqVers", ignoreReqVers},
             {"languageSetting", languageSetting},
             {"overClock", overClock},
@@ -41,7 +41,7 @@ namespace inst::config {
             //autoUpdate = j["autoUpdate"].get<bool>();
             deletePrompt = j["deletePrompt"].get<bool>();
             gAuthKey = j["gAuthKey"].get<std::string>();
-            gayMode = j["gayMode"].get<bool>();
+            disableSound = j["disableSound"].get<bool>();
             ignoreReqVers = j["ignoreReqVers"].get<bool>();
             languageSetting = j["languageSetting"].get<int>();
             overClock = j["overClock"].get<bool>();
@@ -55,7 +55,7 @@ namespace inst::config {
             languageSetting = 99;
             //autoUpdate = true;
             deletePrompt = true;
-            gayMode = false;
+            disableSound = false;
             ignoreReqVers = true;
             overClock = false;
             usbAck = false;

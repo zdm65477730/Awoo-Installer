@@ -147,7 +147,7 @@
             "boost_mode": "Activer le  \"boost mode\" pendant l'installation",
             "ask_delete": "Demande de suppression des fichiers originaux après l'installation",
             "auto_update": "Vérifier les mises à jour de l'installateur Awoo automatiquement",
-            "gay_option": "Enlever la catgirl dans le menu",
+            "disable_sound": "Disable sound effects",
             "sig_url": "Sigpatches URL: ",
             "language": "Langage: ",
             "check_update": "Vérifiez les mises à jour de l'installateur Awoo",

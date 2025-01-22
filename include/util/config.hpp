@@ -19,7 +19,7 @@ namespace inst::config {
     extern bool overClock;
     extern bool deletePrompt;
     //extern bool autoUpdate;
-    extern bool gayMode;
+    extern bool disableSound;
     extern bool usbAck;
 
     void setConfig();

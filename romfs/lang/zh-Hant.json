@@ -147,7 +147,7 @@
             "boost_mode": "在進行安裝時啟用\"超頻\"模式",
             "ask_delete": "在安裝完成後，詢問是否刪除原始檔案",
             "auto_update": "自動檢查Awoo Installer的更新版本",
-            "gay_option": "移除程序介面的動漫圖案",
+            "disable_sound": "Disable sound effects",
             "sig_url": "簽名修補程式來源URL: ",
             "language": "介面語系： ",
             "check_update": "檢查Awoo Installer的更新版本",

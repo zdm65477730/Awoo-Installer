@@ -147,7 +147,7 @@
             "boost_mode": "Abilita la \"boost mode\" durante le installazioni",
             "ask_delete": "Chiedi di cancellare i file originale dopo l'installazione",
             "auto_update": "Controlla aggiornamenti di Awoo Installer automaticamente",
-            "gay_option": "Rimuovi anime",
+            "disable_sound": "Disable sound effects",
             "sig_url": "Fonte URL SigPatches: ",
             "language": "Lingua: ",
             "check_update": "Controlla aggiornamenti di Awoo Installer ora",

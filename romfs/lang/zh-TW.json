@@ -148,7 +148,7 @@
             "boost_mode": "安裝過程中開啟“超頻”模式",
             "ask_delete": "安裝後詢問是否刪除原文件",
             "auto_update": "自動更新",
-            "gay_option": "基友模式",
+            "disable_sound": "Disable sound effects",
             "sig_url": "簽名補丁來源URL: ",
             "language": "語言： ",
             "check_update": "檢測更新",

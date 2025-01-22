@@ -147,7 +147,7 @@
             "boost_mode": "インストール中に「ブーストモード」を有効にする",
             "ask_delete": "インストール後に元のファイルを削除するか尋ねる",
             "auto_update": "Awoo Installerのアップデートを自動的に確認する",
-            "gay_option": "絵を非表示にする",
+            "disable_sound": "Disable sound effects",
             "sig_url": "署名パッチのソースURL: ",
             "language": "言語: ",
             "check_update": "Awoo Installerのアップデートを確認",

@@ -147,7 +147,7 @@
             "boost_mode": "Habilitar el «modo Turbo» durante las instalaciones",
             "ask_delete": "Preguntar si borrar los archivos originales, luego de una instalación satisfactoria",
             "auto_update": "Buscar actualizaciones de Awoo Installer automaticamente",
-            "gay_option": "Eliminar ánime",
+            "disable_sound": "Disable sound effects",
             "sig_url": "URL para la instalación de sigpatches: ",
             "language": "Idioma: ",
             "check_update": "Buscar actualizaciones de Awoo Installer",
