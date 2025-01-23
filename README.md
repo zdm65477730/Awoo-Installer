@@ -4,7 +4,8 @@ A No-Bullshit NSP, NSZ, XCI, and XCZ Installer for Nintendo Switch
 ![Awoo Installer Main Menu](MainMenu.jpg)
 
 ## Features
-- Installs NSP/NSZ/XCI/XCZ files and split NSP/XCI files from your SD card
+- Installs NSP/NSZ/XCI/XCZ files and split NSP/XCI files from SD card
+- Installs NSP/NSZ/XCI/XCZ files and split NSP/XCI files over USB from HDD
 - Installs NSP/NSZ/XCI/XCZ files over LAN or USB from tools such as [NS-USBloader](https://github.com/developersu/ns-usbloader)
 - Installs NSP/NSZ/XCI/XCZ files over the internet by URL or Google Drive
 - Verifies NCAs by header signature before they're installed
