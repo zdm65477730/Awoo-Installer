@@ -76,6 +76,7 @@ do not use the software.
 #include <dirent.h>
 #include <threads.h>
 #include <usbhsfs.h>
+#include <algorithm>
 #include <mutex>
 
 namespace nx::hdd
