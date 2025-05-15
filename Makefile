@@ -41,7 +41,7 @@ TARGET		:=	Awoo-Installer
 BUILD		:=	build
 SOURCES		:=	source source/ui source/data source/install source/nx source/nx/ipc source/util
 DATA		:=	data
-INCLUDES	:=	include include/ui include/data include/install include/nx include/nx/ipc include/util
+INCLUDES	:=	include include/ui include/data include/install include/nx include/nx/ipc include/util libs/libusbhsfs/include
 APP_TITLE	:=	Awoo Installer
 APP_AUTHOR	:=	Huntereb & Behemoth
 APP_VERSION	:=	$(shell git describe --tags | sed 's/-g.*//')
@@ -76,7 +76,7 @@ LIBS	+=	-lmbedtls -lmbedcrypto -lminizip -lzstd # Memes
 # list of directories containing libraries, this must be the top level containing
 # include and lib
 #---------------------------------------------------------------------------------
-LIBDIRS	:= $(PORTLIBS) $(LIBNX) $(CURDIR)/Plutonium/Plutonium/Output
+LIBDIRS	:= $(PORTLIBS) $(LIBNX) $(CURDIR)/Plutonium/Plutonium/Output $(CURDIR)/libs/libusbhsfs
 
 
 #---------------------------------------------------------------------------------
@@ -175,6 +175,7 @@ $(BUILD):
 	@[ -d $@ ] || mkdir -p $@
 	#comment this out if you are hacking on the code or compilation will take forever
 	$(MAKE) --no-print-directory -C Plutonium -f Makefile lib
+	$(MAKE) --no-print-directory -C libs/libusbhsfs -f Makefile BUILD_TYPE=GPL release
 	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
 
 #---------------------------------------------------------------------------------
@@ -182,9 +183,11 @@ clean:
 	@echo clean ...
 ifeq ($(strip $(APP_JSON)),)
 	@$(MAKE) --no-print-directory -C Plutonium/Plutonium -f Makefile clean
+	@$(MAKE) --no-print-directory -C libs/libusbhsfs -f Makefile clean
 	@rm -fr $(BUILD) $(TARGET).nro $(TARGET).nacp $(TARGET).elf
 else
 	@$(MAKE) --no-print-directory -C Plutonium/Plutonium -f Makefile clean
+	@$(MAKE) --no-print-directory -C libs/libusbhsfs -f Makefile clean
 	@rm -fr $(BUILD) $(TARGET).nsp $(TARGET).nso $(TARGET).npdm $(TARGET).elf
 endif
 

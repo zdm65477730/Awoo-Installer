@@ -1,3 +1,6 @@
 [submodule "Plutonium"]
 	path = Plutonium
 	url = https://github.com/arkbon/Plutonium.git
+[submodule "libs/libusbhsfs"]
+	path = libs/libusbhsfs
+	url = https://github.com/DarkMatterCore/libusbhsfs.git
