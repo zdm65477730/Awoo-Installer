@@ -5,15 +5,15 @@
 #include "util/util.hpp"
 #include "util/config.hpp"
 #include "util/lang.hpp"
-#include "sigInstall.hpp"
 #include "data/buffered_placeholder_writer.hpp"
+#include "nx/usbhdd.h"
 
 #define COLOR(hex) pu::ui::Color::FromHex(hex)
 
 namespace inst::ui {
     extern MainApplication *mainApp;
     bool appletFinished = false;
-    bool updateFinished = false;
+    //bool updateFinished = false;
 
     void mainMenuThread() {
         bool menuLoaded = mainApp->IsShown();
@@ -27,11 +27,11 @@ namespace inst::ui {
             inst::ui::appletFinished = true;
             tin::data::NUM_BUFFER_SEGMENTS = 128;
         }
-        if (!updateFinished && (!inst::config::autoUpdate || inst::util::getIPAddress() == "1.0.0.127")) updateFinished = true;
-        if (!updateFinished && menuLoaded && inst::config::updateInfo.size()) {
-            updateFinished = true;
-            optionsPage::askToUpdate(inst::config::updateInfo);
-        }
+        //if (!updateFinished && (!inst::config::autoUpdate || inst::util::getIPAddress() == "1.0.0.127")) updateFinished = true;
+        //if (!updateFinished && menuLoaded && inst::config::updateInfo.size()) {
+        //    updateFinished = true;
+        //    optionsPage::askToUpdate(inst::config::updateInfo);
+        //}
     }
 
     MainPage::MainPage() : Layout::Layout() {
@@ -40,14 +40,8 @@ namespace inst::ui {
         else this->SetBackgroundImage("romfs:/images/background.jpg");
         this->topRect = Rectangle::New(0, 0, 1280, 94, COLOR("#170909FF"));
         this->botRect = Rectangle::New(0, 659, 1280, 61, COLOR("#17090980"));
-        if (inst::config::gayMode) {
-            this->titleImage = Image::New(-113, 0, "romfs:/images/logo.png");
-            this->appVersionText = TextBlock::New(367, 49, "v" + inst::config::appVersion, 22);
-        }
-        else {
-            this->titleImage = Image::New(0, 0, "romfs:/images/logo.png");
-            this->appVersionText = TextBlock::New(480, 49, "v" + inst::config::appVersion, 22);
-        }
+        this->titleImage = Image::New(0, 0, "romfs:/images/logo.png");
+        this->appVersionText = TextBlock::New(480, 49, "v" + inst::config::appVersion, 22);
         this->appVersionText->SetColor(COLOR("#FFFFFFFF"));
         this->butText = TextBlock::New(10, 678, "main.buttons"_lang, 24);
         this->butText->SetColor(COLOR("#FFFFFFFF"));
@@ -63,18 +57,16 @@ namespace inst::ui {
         this->usbInstallMenuItem = pu::ui::elm::MenuItem::New("main.menu.usb"_lang);
         this->usbInstallMenuItem->SetColor(COLOR("#FFFFFFFF"));
         this->usbInstallMenuItem->SetIcon("romfs:/images/icons/usb-port.png");
-        this->sigPatchesMenuItem = pu::ui::elm::MenuItem::New("main.menu.sig"_lang);
-        this->sigPatchesMenuItem->SetColor(COLOR("#FFFFFFFF"));
-        this->sigPatchesMenuItem->SetIcon("romfs:/images/icons/wrench.png");
         this->settingsMenuItem = pu::ui::elm::MenuItem::New("main.menu.set"_lang);
         this->settingsMenuItem->SetColor(COLOR("#FFFFFFFF"));
         this->settingsMenuItem->SetIcon("romfs:/images/icons/settings.png");
         this->exitMenuItem = pu::ui::elm::MenuItem::New("main.menu.exit"_lang);
         this->exitMenuItem->SetColor(COLOR("#FFFFFFFF"));
         this->exitMenuItem->SetIcon("romfs:/images/icons/exit-run.png");
-        if (std::filesystem::exists(inst::config::appDir + "/awoo_main.png")) this->awooImage = Image::New(410, 190, inst::config::appDir + "/awoo_main.png");
-        else this->awooImage = Image::New(410, 190, "romfs:/images/awoos/5bbdbcf9a5625cd307c9e9bc360d78bd.png");
-        this->eggImage = Image::New(410, 190, "romfs:/images/awoos/a8cb40e465dadaf9708c9b1896777ce6.png");
+        if (std::filesystem::exists(inst::config::appDir + "/awoo_main.png")) {
+            this->awooImage = Image::New(410, 190, inst::config::appDir + "/awoo_main.png");
+            this->Add(this->awooImage);
+        }
         this->Add(this->topRect);
         this->Add(this->botRect);
         this->Add(this->titleImage);
@@ -83,14 +75,9 @@ namespace inst::ui {
         this->optionMenu->AddItem(this->installMenuItem);
         this->optionMenu->AddItem(this->netInstallMenuItem);
         this->optionMenu->AddItem(this->usbInstallMenuItem);
-        this->optionMenu->AddItem(this->sigPatchesMenuItem);
         this->optionMenu->AddItem(this->settingsMenuItem);
         this->optionMenu->AddItem(this->exitMenuItem);
         this->Add(this->optionMenu);
-        this->Add(this->awooImage);
-        this->Add(this->eggImage);
-        this->awooImage->SetVisible(!inst::config::gayMode);
-        this->eggImage->SetVisible(false);
         this->AddThread(mainMenuThread);
     }
 
@@ -109,18 +96,20 @@ namespace inst::ui {
     }
 
     void MainPage::usbInstallMenuItem_Click() {
-        if (!inst::config::usbAck) {
-            if (mainApp->CreateShowDialog("main.usb.warn.title"_lang, "main.usb.warn.desc"_lang, {"common.ok"_lang, "main.usb.warn.opt1"_lang}, false) == 1) {
-                inst::config::usbAck = true;
-                inst::config::setConfig();
+        if(nx::hdd::count() && nx::hdd::rootPath()) {
+            mainApp->sdinstPage->drawMenuItems(true, nx::hdd::rootPath());
+            mainApp->sdinstPage->menu->SetSelectedIndex(0);
+            mainApp->LoadLayout(mainApp->sdinstPage);
+        } else {
+            if (!inst::config::usbAck) {
+                if (mainApp->CreateShowDialog("main.usb.warn.title"_lang, "main.usb.warn.desc"_lang, {"common.ok"_lang, "main.usb.warn.opt1"_lang}, false) == 1) {
+                    inst::config::usbAck = true;
+                    inst::config::setConfig();
+                }
             }
+            if (inst::util::usbIsConnected()) mainApp->usbinstPage->startUsb();
+            else mainApp->CreateShowDialog("main.usb.error.title"_lang, "main.usb.error.desc"_lang, {"common.ok"_lang}, false);
         }
-        if (inst::util::usbIsConnected()) mainApp->usbinstPage->startUsb();
-        else mainApp->CreateShowDialog("main.usb.error.title"_lang, "main.usb.error.desc"_lang, {"common.ok"_lang}, false);
-    }
-
-    void MainPage::sigPatchesMenuItem_Click() {
-        sig::installSigPatches();
     }
 
     void MainPage::exitMenuItem_Click() {
@@ -149,25 +138,14 @@ namespace inst::ui {
                     MainPage::usbInstallMenuItem_Click();
                     break;
                 case 3:
-                    MainPage::sigPatchesMenuItem_Click();
-                    break;
-                case 4:
                     MainPage::settingsMenuItem_Click();
                     break;
-                case 5:
+                case 4:
                     MainPage::exitMenuItem_Click();
                     break;
                 default:
                     break;
             }
-        }
-        if (Down & HidNpadButton_X) {
-            this->awooImage->SetVisible(false);
-            this->eggImage->SetVisible(true);
-        }
-        if (Up & HidNpadButton_X) {
-            this->eggImage->SetVisible(false);
-            if (!inst::config::gayMode) this->awooImage->SetVisible(true);
         }
     }
 }

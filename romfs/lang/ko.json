@@ -147,7 +147,7 @@
             "boost_mode": "설치 중 \"부스트 모드\" 활성화",
             "ask_delete": "설치 후 원본 파일 삭제 요청",
             "auto_update": "자동으로 Awoo 설치 프로그램에 대한 업데이트 확인",
-            "gay_option": "애니메이션 제거",
+            "disable_sound": "Disable sound effects",
             "sig_url": "서명 패치 소스 URL: ",
             "language": "언어: ",
             "check_update": "Awoo 설치 프로그램에 대한 업데이트 확인",
