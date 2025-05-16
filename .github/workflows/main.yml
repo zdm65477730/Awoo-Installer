@@ -36,9 +36,10 @@ jobs:
           submodules: recursive
       - name: Setup ENV parameters
         run: |
-          tag=$(echo "$(git tag --sort=-version:refname|head -1)")
-          echo "TAG=${tag}" >> "${GITHUB_ENV}"
-          echo "RELEASE_NAME=Awoo-Install ${tag}" >> "${GITHUB_ENV}"
+          VER_FILE=Makefile
+          VERSION=$(awk '/^APP_VERSION/{print $3}' $VER_FILE)
+          echo "TAG=${VERSION}" >> "${GITHUB_ENV}"
+          echo "RELEASE_NAME=Awoo-Install ${VERSION}" >> "${GITHUB_ENV}"
         shell: bash
       - name: Build
         run: |

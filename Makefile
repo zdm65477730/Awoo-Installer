@@ -44,14 +44,14 @@ DATA		:=	data
 INCLUDES	:=	include include/ui include/data include/install include/nx include/nx/ipc include/util libs/libusbhsfs/include
 APP_TITLE	:=	Awoo Installer
 APP_AUTHOR	:=	Huntereb & Behemoth
-APP_VERSION	:=	$(shell git describe --tags | sed 's/-g.*//')
+APP_VERSION	:=	v1.3.4
 ROMFS		:=	romfs
 
 #---------------------------------------------------------------------------------
 # options for code generation
 #---------------------------------------------------------------------------------
 ARCH	:=	-march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE
-DEFINES	:=	-DAPP_VERSION=$(shell git describe --tags --dirty)
+DEFINES	:=	-DAPP_VERSION=$(APP_VERSION)-$(shell git rev-parse --short=9 HEAD)
 
 CFLAGS	:=	-g -Wall -O2 -ffunction-sections \
 			$(ARCH) $(DEFINES)
